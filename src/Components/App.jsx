@@ -12,8 +12,8 @@ import axios from 'axios';
 // import Footer from './Footer/Footer';
 // import SearchBar from './SearchBar/SearchBar';
 
-const tokenFromStorage = localStorage.getItem('token');
-localStorage.removeItem('token')
+// const tokenFromStorage = localStorage.getItem('token');
+// localStorage.removeItem('token')
 
 class App extends Component {
     constructor(props) {
@@ -46,9 +46,9 @@ class App extends Component {
     registerNewUser = async (user) => {
         console.log("User object from Register: ", user)
         try{
-            const response = await axios.post('https://localhost:44394/api/authentication', user);
+            const response = await axios.post('http://127.0.0.1:8000/api/auth/register/', user);
             console.log(response)
-            this.loggedInUser = ({'userName': user.userName, 'password': user.password})
+            this.loggedInUser = ({'username': user.username, 'password': user.password})
 
         }
         catch(error) {
@@ -61,7 +61,7 @@ class App extends Component {
     loginUser = async (login) => {
         console.log("User object from login:", login)
         try {
-            let response = await axios.post('https://localhost:44394/api/authentication/login', login);
+            let response = await axios.post('http://127.0.0.1:8000/api/auth/login/', login);
             this.setState({
                 user: response.data.token
             });

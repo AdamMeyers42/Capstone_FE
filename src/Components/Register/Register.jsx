@@ -5,8 +5,8 @@ class Register extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            firstname:"",
-            lastname:"",
+            first_name:"",
+            last_name:"",
             username:"",
             password:"",
             email:"",
@@ -23,8 +23,8 @@ class Register extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         const user = {
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
             username: this.state.username,
             password:this.state.password,
             email: this.state.email,
@@ -32,8 +32,8 @@ class Register extends Component {
         };
         this.props.registerNewUser(user);
         this.setState({
-            firstname: "",
-            lastname: "",
+            first_name: "",
+            last_name: "",
             username: "",
             password: "",
             email: "",
@@ -54,12 +54,12 @@ class Register extends Component {
                 </div>
 
                 <div class="form-outline form-white mb-2">
-                  <input type="text" name = "firstname" id="typeFirstNameX" class="form-control form-control-lg" onChange={this.handleChange} value={this.state.firstname} />
+                  <input type="text" name = "first_name" id="typeFirstNameX" class="form-control form-control-lg" onChange={this.handleChange} value={this.state.first_name} />
                   <label class="form-label fs-6 fw-bold" for="typeFirstNameX">First Name</label>
                 </div>
 
                 <div class="form-outline form-white mb-2">
-                  <input type="text" name = "lastname" id="typeLastNameX" class="form-control form-control-lg" onChange={this.handleChange} value={this.state.lastname} />
+                  <input type="text" name = "last_name" id="typeLastNameX" class="form-control form-control-lg" onChange={this.handleChange} value={this.state.last_name} />
                   <label class="form-label fs-6 fw-bold" for="typeLastNameX">Last Name</label>
                 </div>
                 <div class="form-outline form-white mb-2">
