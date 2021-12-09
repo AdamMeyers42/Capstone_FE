@@ -3,7 +3,7 @@ import './NavigationBar.css';
 import { Link } from 'react-router-dom';
 
 
-const NavBar = ({user}) => {
+const NavigationBar = ({user}) => {
 
     const logoutUser = () => {
         localStorage.removeItem('token');
@@ -16,9 +16,9 @@ const NavBar = ({user}) => {
        {user && <h4> Welcome {user.username} </h4>}
             <ul>
                         <Link to ='/Home'> <li>Home</li> </Link>
-                        {/* <Link to ='/Products'> <li>Products</li> </Link>
-                        <Link to ='/ShoppingCart'> <li>Shopping Cart</li> </Link>
-                        <Link to ='/CreateProduct'> <li>Add New Product</li> </Link> */}
+                        <Link to ='/CommentBoard'> <li>CommentBoard</li> </Link>
+                        {/* <Link to ='/ShoppingCart'> <li>Shopping Cart</li> </Link> */}
+                        {/* <Link to ='/CreateProduct'> <li>Add New Product</li> </Link> */}
                 {!user &&
                     <React.Fragment>
                         <Link to ='/Login'> <li>Login</li> </Link>
@@ -38,4 +38,4 @@ const NavBar = ({user}) => {
     );
 }
 
-export default NavBar;
+export default NavigationBar;

@@ -1,0 +1,100 @@
+.header {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 16px;
+}
+       
+ul {
+    list-style-type: none;
+    margin: 1%;
+    padding: .25%;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #606a74;
+    float:none;
+}
+nav {
+    z-index: 9999;
+}
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    }
+    #nav a:hover {
+    background-color: black;
+    color: #F1F1F1;
+    }
+#nav a.active {
+    background-color: #F1F1F1;
+    color: white;
+    }
+.content {
+    padding: 16px;
+    }
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    }
+.sticky + .content {
+    padding-top: 60px;
+    }
+
+.form-outline{
+        text-align: left;
+      }
+
+.search-bar{
+    margin-inline-start: 60%;
+    padding: 8px 15px;
+    max-width: 40%;
+    position: relative;
+    
+    
+}
+
+    /* style inputs and link buttons */
+input,
+ .btn {
+    width: 100%;
+    padding: 5%;
+    border: none;
+    border-radius: 4px;
+    margin: 5px 0;
+    opacity: 0.85;
+    display: inline-block;
+    font-size: 17px;
+    line-height: 10px;
+    text-decoration: none; /* remove underline from anchors */
+}
+ 
+input:hover,
+ .btn:hover {
+    opacity: 1;
+}
+ 
+/* style the submit button */
+button-nav[type="submit"] {
+    border-radius: 10px;
+    padding: 6px 5px 5px 18px;
+    background-color: #567956;
+    color: black;
+    cursor: pointer;
+    width: 60px;
+    height: auto;
+}
+ 
+button-nav[type="submit"]:hover {
+    background-color: #45a049;
+    width: 50px;
+    border-radius: 10px;
+    padding: 6px 5px 5px 18px;
+    color: white;
+    cursor: pointer;
+    width: 60px;
+    height: auto;
+}

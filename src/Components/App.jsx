@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from './Login/Login';
 import Register from './Register/Register';
-import NavigationBar from './NavigationBar/NavigationBar'; 
+import NavigationBar from './NavigationBar/NavigationBar';
+import CommentBoard from './CommentBoard/CommentBoard';  
 import Home from './HomeScreen/Home';
 // import CreateProduct from './CreateProduct/CreateProduct'
 // import DisplayProducts from './DisplayProducts/DisplayProducts';
@@ -20,8 +21,8 @@ class App extends Component {
         super(props);
         this.state = {
             loggedInUser: null,
-            // products: [],
-            // shoppingCart: [],
+            comments: [],
+            refresh: "",
             jwt: "",
         };
     }
@@ -38,9 +39,7 @@ class App extends Component {
             console.log(error);
         }
 
-
-        // this.getAllProducts()
-        // this.getCartProducts()
+        this.getAllComments()
     }
 
     registerNewUser = async (user) => {
@@ -56,19 +55,20 @@ class App extends Component {
         }
     }
 
-    
-
     loginUser = async (login) => {
         console.log("User object from login:", login)
         try {
             let response = await axios.post('http://127.0.0.1:8000/api/auth/login/', login);
             this.setState({
-                user: response.data.token
+                user: response.data.access
             });
             this.setState({
-                jwt: response.data.token
+                jwt: response.data.access
             });
-            localStorage.setItem('token', response.data.token);
+            this.setState({
+                refresh: response.data.refresh
+            });
+            localStorage.setItem('token', response.data.access);
             
             window.location = ('/')
 
@@ -99,20 +99,36 @@ class App extends Component {
         
         
     // }
-
+    // , { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}
     // searchProducts = (results) => {
     //     this.setState({
     //         products: results
     //     })
     // }
 
-    // getCartProducts = async () => {
-    //     let response = await axios.get('https://localhost:44394/api/ShoppingCart/', { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
-    //     this.setState({
-    //         shoppingCart: response.data
-    //     });
-    // }
+    getAllComments = async () => {
+        let response = await axios.get('http://127.0.0.1:8000/comment/');
+        this.setState({
+            comments: response.data
+        });
+    }
+
+    addNewComment = async (comment) => {
+        try{
+            console.log("Comment inside func")
+            console.log(comment)
+            const response = await axios.post('http://127.0.0.1:8000/comment/', comment);
+            this.comment = ({'UserName': comment.User_id, 'Comment': comment.comment})
+            // this.setState({
+            //     comments: response.data
+            // });
+        }
+        catch(error) {
+            console.log(error, 'Invalid input');
+        }
+    }
  
+    
 
     render() {
 const user = this.state.loggedInUser
@@ -135,11 +151,8 @@ const user = this.state.loggedInUser
                 
                 <Route path='/Login' render={props => <Login {...props} loginUser={this.loginUser}/>} />
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
-                {/* <Route path='/Home' />              
-                <Route path='/Products' render={props => <DisplayProducts {...props} products={this.state.products}/>} />               
-                <Route path='/createProduct' render={props => <CreateProduct {...props} addNewProduct={this.addNewProduct} />} />
-                <Route path='/ShoppingCart' render={props => <ShoppingCart {...props} shoppingCart={this.state.shoppingCart} />} /> */}
-
+                <Route path='/Home' />              
+                <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} User_id={this.state.loggedInUser} addNewComment={this.addNewComment} />} />               
                 </Switch>
                 {/* <Footer/> */}
                 
