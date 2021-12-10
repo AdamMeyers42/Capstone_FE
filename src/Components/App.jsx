@@ -78,34 +78,6 @@ class App extends Component {
   
     }
 
-    // getAllProducts = async () => {
-    //     let response = await axios.get('https://localhost:44394/api/Product/')
-    //     this.setState({
-    //         products: response.data
-    //     });
-    // }
-
-    // addNewProduct = async (product) => {
-    //     try{
-    //         const response = await axios.post('https://localhost:44394/api/Product', product);
-    //         this.product = ({'Name': product.Name, 'Description': product.Description, 'Price': product.Price, 'Category': product.Category})
-    //         this.setState({
-    //             products: response.data
-    //         });
-    //     }
-    //     catch(error) {
-    //         console.log(error, 'Invalid input');
-    //     }
-        
-        
-    // }
-    // , { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}
-    // searchProducts = (results) => {
-    //     this.setState({
-    //         products: results
-    //     })
-    // }
-
     getAllComments = async () => {
         let response = await axios.get('http://127.0.0.1:8000/comment/');
         this.setState({
@@ -115,20 +87,32 @@ class App extends Component {
 
     addNewComment = async (comment) => {
         try{
-            console.log("Comment inside func")
-            console.log(comment)
-            const response = await axios.post('http://127.0.0.1:8000/comment/', comment);
-            this.comment = ({'UserName': comment.User_id, 'Comment': comment.comment})
-            // this.setState({
-            //     comments: response.data
-            // });
+            const response = await axios.post('http://127.0.0.1:8000/commentauth/', comment, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
         }
         catch(error) {
             console.log(error, 'Invalid input');
         }
     }
  
+    deleteComment = async (commentId) => {
+        try{
+            const response = await axios.delete('http://127.0.0.1:8000/commentauth/' + commentId, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+        }
+        catch(error) {
+            console.log(error, 'Invalid input');
+        }
+    }
+
+    editComment = async (commentId) => {
+        try{
+            const response = await axios.put('http://127.0.0.1:8000/commentauth/' + commentId, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+        }
+        catch(error) {
+            console.log(error, 'Invalid input');
+        }
+    }
     
+
 
     render() {
 const user = this.state.loggedInUser
@@ -152,7 +136,7 @@ const user = this.state.loggedInUser
                 <Route path='/Login' render={props => <Login {...props} loginUser={this.loginUser}/>} />
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
                 <Route path='/Home' />              
-                <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} User_id={this.state.loggedInUser} addNewComment={this.addNewComment} />} />               
+                <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} user={this.state.loggedInUser} addNewComment={this.addNewComment} deleteComment={this.deleteComment} />} />               
                 </Switch>
                 {/* <Footer/> */}
                 

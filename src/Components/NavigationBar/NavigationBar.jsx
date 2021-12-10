@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 
 const NavigationBar = ({user}) => {
-
     const logoutUser = () => {
         localStorage.removeItem('token');
         window.location = ('/')
@@ -13,7 +12,7 @@ const NavigationBar = ({user}) => {
     return (
 <nav>
     
-       {user && <h4> Welcome {user.username} </h4>}
+       {user && <h4> Welcome {user.userId} </h4>}
             <ul>
                         <Link to ='/Home'> <li>Home</li> </Link>
                         <Link to ='/CommentBoard'> <li>CommentBoard</li> </Link>
