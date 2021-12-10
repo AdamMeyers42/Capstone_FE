@@ -16,7 +16,7 @@ const NavigationBar = ({user}) => {
             <ul>
                         <Link to ='/Home'> <li>Home</li> </Link>
                         <Link to ='/CommentBoard'> <li>CommentBoard</li> </Link>
-                        {/* <Link to ='/ShoppingCart'> <li>Shopping Cart</li> </Link> */}
+                        <Link to ='/Team'> <li>Team Management</li> </Link>
                         {/* <Link to ='/CreateProduct'> <li>Add New Product</li> </Link> */}
                 {!user &&
                     <React.Fragment>

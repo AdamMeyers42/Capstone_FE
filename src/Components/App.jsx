@@ -7,6 +7,7 @@ import CommentBoard from './CommentBoard/CommentBoard';
 import Home from './HomeScreen/Home';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import Team from './Team/Team'
 // import Footer from './Footer/Footer';
 // import SearchBar from './SearchBar/SearchBar';
 
@@ -16,6 +17,7 @@ class App extends Component {
         this.state = {
             loggedInUser: null,
             comments: [],
+            players: [],
             refresh: "",
             jwt: "",
         };
@@ -34,6 +36,7 @@ class App extends Component {
         }
 
         this.getAllComments()
+        this.getAllPlayers()
     }
 
     registerNewUser = async (user) => {
@@ -108,6 +111,13 @@ class App extends Component {
             console.log(error, 'Invalid input');
         }
     }
+
+    getAllPlayers = async () => {
+        let response = await axios.get('http://127.0.0.1:8000/players/');
+        this.setState({
+            players: response.data
+        });
+    }
     
 
 
@@ -134,6 +144,7 @@ class App extends Component {
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
                 <Route path='/Home' />              
                 <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} user={this.state.loggedInUser} addNewComment={this.addNewComment} deleteComment={this.deleteComment} />} />               
+                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} />} />               
                 </Switch>
                 {/* <Footer/> */}
                 

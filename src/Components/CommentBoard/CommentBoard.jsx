@@ -1,8 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router";
-import jwtDecode from 'jwt-decode';
 import CommentInput from "../CommentInput/CommentInput";
-import axios from 'axios';
 
 const CommentBoard = (props) => {
 
@@ -14,7 +11,7 @@ const CommentBoard = (props) => {
     return (
         <div>
             <h1>SMACK TALK</h1>
-            <div>
+            <div class="h-25">
                 <CommentInput {...props} addNewComment={props.addNewComment} />
             </div>
             <div>
