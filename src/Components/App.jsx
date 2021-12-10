@@ -5,16 +5,10 @@ import Register from './Register/Register';
 import NavigationBar from './NavigationBar/NavigationBar';
 import CommentBoard from './CommentBoard/CommentBoard';  
 import Home from './HomeScreen/Home';
-// import CreateProduct from './CreateProduct/CreateProduct'
-// import DisplayProducts from './DisplayProducts/DisplayProducts';
-// import ShoppingCart from './ShoppingCart/ShoppingCart'
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 // import Footer from './Footer/Footer';
 // import SearchBar from './SearchBar/SearchBar';
-
-// const tokenFromStorage = localStorage.getItem('token');
-// localStorage.removeItem('token')
 
 class App extends Component {
     constructor(props) {
@@ -43,7 +37,7 @@ class App extends Component {
     }
 
     registerNewUser = async (user) => {
-        console.log("User object from Register: ", user)
+
         try{
             const response = await axios.post('http://127.0.0.1:8000/api/auth/register/', user);
             console.log(response)
@@ -56,7 +50,7 @@ class App extends Component {
     }
 
     loginUser = async (login) => {
-        console.log("User object from login:", login)
+
         try {
             let response = await axios.post('http://127.0.0.1:8000/api/auth/login/', login);
             this.setState({
@@ -86,6 +80,7 @@ class App extends Component {
     }
 
     addNewComment = async (comment) => {
+
         try{
             const response = await axios.post('http://127.0.0.1:8000/commentauth/', comment, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
         }
@@ -95,6 +90,7 @@ class App extends Component {
     }
  
     deleteComment = async (commentId) => {
+
         try{
             const response = await axios.delete('http://127.0.0.1:8000/commentauth/' + commentId, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
         }
@@ -104,6 +100,7 @@ class App extends Component {
     }
 
     editComment = async (commentId) => {
+
         try{
             const response = await axios.put('http://127.0.0.1:8000/commentauth/' + commentId, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
         }
@@ -115,7 +112,7 @@ class App extends Component {
 
 
     render() {
-const user = this.state.loggedInUser
+        const user = this.state.loggedInUser
         return (
             <div>
                 <div>
