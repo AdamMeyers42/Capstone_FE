@@ -18,6 +18,7 @@ class App extends Component {
             loggedInUser: null,
             comments: [],
             players: [],
+            injuries: [],
             refresh: "",
             jwt: "",
         };
@@ -34,11 +35,12 @@ class App extends Component {
         } catch (error) {
             console.log(error);
         }
-
+        
+        this.getAllInjury()
         this.getAllComments()
         this.getAllPlayers()
     }
-
+    //login 
     registerNewUser = async (user) => {
 
         try{
@@ -75,6 +77,7 @@ class App extends Component {
   
     }
 
+    //comments
     getAllComments = async () => {
         let response = await axios.get('http://127.0.0.1:8000/comment/');
         this.setState({
@@ -112,6 +115,7 @@ class App extends Component {
         }
     }
 
+    //players
     getAllPlayers = async () => {
         let response = await axios.get('http://127.0.0.1:8000/players/');
         this.setState({
@@ -119,6 +123,40 @@ class App extends Component {
         });
     }
     
+    addPlayer = async (userPlayer) => {
+        let response = await axios.post('http://127.0.0.1:8000/players/', userPlayer, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+        this.setState({
+            players: response.data
+        });
+    }
+    
+    //injuryreport
+    getAllInjury = async () => {
+        let response = await axios.get('http://127.0.0.1:8000/injury/');
+        this.setState({
+            injuries: response.data
+        });
+    }
+
+    deleteInjury = async (injuryReport) => {
+
+        try{
+            const response = await axios.delete('http://127.0.0.1:8000/injury/' + injuryReport, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+        }
+        catch(error) {
+            console.log(error, 'Invalid input');
+        }
+    }
+
+    editInjury = async (injuryReport) => {
+
+        try{
+            const response = await axios.put('http://127.0.0.1:8000/injury/' + injuryReport, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+        }
+        catch(error) {
+            console.log(error, 'Invalid input');
+        }
+    }
 
 
     render() {
@@ -144,7 +182,7 @@ class App extends Component {
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
                 <Route path='/Home' />              
                 <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} user={this.state.loggedInUser} addNewComment={this.addNewComment} deleteComment={this.deleteComment} />} />               
-                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} />} />               
+                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} addPlayer={this.addPlayer} getAllInjury={this.state.injuries} deleteInjury={this.deleteInjury} />} />               
                 </Switch>
                 {/* <Footer/> */}
                 
