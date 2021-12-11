@@ -38,7 +38,7 @@ class App extends Component {
         
         this.getAllInjury()
         this.getAllComments()
-        this.getAllPlayers()
+        // this.getAllPlayers()
     }
     //login 
     registerNewUser = async (user) => {
@@ -138,10 +138,10 @@ class App extends Component {
         });
     }
 
-    deleteInjury = async (injuryReport) => {
+    deleteInjury = async (injuryReportId) => {
 
         try{
-            const response = await axios.delete('http://127.0.0.1:8000/injury/' + injuryReport, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+            const response = await axios.delete('http://127.0.0.1:8000/injury/' + injuryReportId, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
         }
         catch(error) {
             console.log(error, 'Invalid input');

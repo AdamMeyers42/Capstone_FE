@@ -89,7 +89,6 @@ const Team = (props) => {
                     })}
                 </table>
             </div>
-            {/* <h1>Injury Report</h1> */}
             <div class="column">
                 <h2>Injured Players</h2>
                 <table className="table-container">
@@ -111,7 +110,7 @@ const Team = (props) => {
                                     <td>{injuryReport.playerName}</td>
                                     <td>{injuryReport.injury}</td>
                                     <td>{injuryReport.duration}</td>
-                                    <td><button onClick={() => handleDelete(injuryReport.injuryReportId)}>delete</button></td>
+                                    <td><button onClick={() => handleDelete(injuryReport.id)}>delete</button></td>
                                 </tr>
                             </tbody>
                         )
