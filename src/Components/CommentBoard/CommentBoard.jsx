@@ -1,6 +1,7 @@
 import React from "react";
 import CommentInput from "../CommentInput/CommentInput";
 
+
 const CommentBoard = (props) => {
 
     const handleDelete = (commentId) => {

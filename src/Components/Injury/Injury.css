@@ -20,3 +20,25 @@
     width: 33%;
     display: block;
   }
+
+  .submit {
+    width: 10em;
+    height: 10% ;
+    padding: 10px;
+    box-sizing: border-box;
+    float: right;
+    background-color: rgb(41, 204, 8);
+    font-weight: bold;
+}
+
+.text {
+    background-color: rgb(228, 224, 224);
+}
+
+.label {
+    width: 50%;
+}
+
+.editRow {
+    display: none;
+}

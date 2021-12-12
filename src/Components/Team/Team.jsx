@@ -18,11 +18,6 @@ const Team = (props) => {
         window.location = ('/Team') 
     }
 
-    const handleDelete = (injuryReportId) => {
-        props.deleteInjury(injuryReportId)
-        window.location = ('/Team') 
-    }
-
     return (
         <div class="row"> 
             <div class="column">
@@ -83,34 +78,6 @@ const Team = (props) => {
                                     <td>{player.player.firstName}</td>
                                     <td>{player.player.lastName}</td>
                                     <td>{player.player.primaryPosition}</td>
-                                </tr>
-                            </tbody>
-                        )
-                    })}
-                </table>
-            </div>
-            <div class="column">
-                <h2>Injured Players</h2>
-                <table className="table-container">
-                    <thead>
-                        <tr>
-                            <th>Fantasy Team</th>
-                            <th>Player Name</th>
-                            <th>Injury</th>
-                            <th>Estimated Time Out</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    {props.getAllInjury.map((injuryReport) => {
-                        console.log(injuryReport)
-                        return (
-                            <tbody>
-                                <tr>
-                                    <td>{injuryReport.playerTeam}</td>
-                                    <td>{injuryReport.playerName}</td>
-                                    <td>{injuryReport.injury}</td>
-                                    <td>{injuryReport.duration}</td>
-                                    <td><button onClick={() => handleDelete(injuryReport.id)}>delete</button></td>
                                 </tr>
                             </tbody>
                         )

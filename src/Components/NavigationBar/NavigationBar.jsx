@@ -11,13 +11,12 @@ const NavigationBar = ({user}) => {
 
     return (
 <nav>
-    
-       {user && <h4> Welcome {user.userId} </h4>}
             <ul>
                         <Link to ='/Home'> <li>Home</li> </Link>
                         <Link to ='/CommentBoard'> <li>CommentBoard</li> </Link>
                         <Link to ='/Team'> <li>Team Management</li> </Link>
-                        {/* <Link to ='/CreateProduct'> <li>Add New Product</li> </Link> */}
+                        <Link to ='/Injury'> <li>Manage Injuries</li> </Link>
+                        <Link to ='/Profile'> <li>Profile</li> </Link>
                 {!user &&
                     <React.Fragment>
                         <Link to ='/Login'> <li>Login</li> </Link>

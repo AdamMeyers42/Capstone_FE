@@ -7,7 +7,8 @@ import CommentBoard from './CommentBoard/CommentBoard';
 import Home from './HomeScreen/Home';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
-import Team from './Team/Team'
+import Team from './Team/Team';
+import Injury from './Injury/Injury'
 // import Footer from './Footer/Footer';
 // import SearchBar from './SearchBar/SearchBar';
 
@@ -148,10 +149,21 @@ class App extends Component {
         }
     }
 
-    editInjury = async (injuryReport) => {
+    editInjury = async (injuryReport,injuryReportId) => {
+        console.log("B2")
+        try{
+            const response = await axios.put('http://127.0.0.1:8000/injury/' + injuryReportId, injuryReport, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+        }
+        catch(error) {
+            console.log(error, 'Invalid input');
+        }
+        console.log("E2")
+    }
+
+    addNewInjury = async (injury) => {
 
         try{
-            const response = await axios.put('http://127.0.0.1:8000/injury/' + injuryReport, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+            const response = await axios.post('http://127.0.0.1:8000/injury/', injury, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
         }
         catch(error) {
             console.log(error, 'Invalid input');
@@ -180,9 +192,10 @@ class App extends Component {
                 
                 <Route path='/Login' render={props => <Login {...props} loginUser={this.loginUser}/>} />
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
-                <Route path='/Home' />              
+                <Route path='/Home' />
+                <Route path='/Injury' render={props => <Injury {...props} user={this.state.loggedInUser} getAllInjury={this.state.injuries} deleteInjury={this.deleteInjury} addNewInjury={this.addNewInjury} editInjury={this.editInjury} />}/>                
                 <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} user={this.state.loggedInUser} addNewComment={this.addNewComment} deleteComment={this.deleteComment} />} />               
-                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} addPlayer={this.addPlayer} getAllInjury={this.state.injuries} deleteInjury={this.deleteInjury} />} />               
+                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} addPlayer={this.addPlayer} />} />               
                 </Switch>
                 {/* <Footer/> */}
                 

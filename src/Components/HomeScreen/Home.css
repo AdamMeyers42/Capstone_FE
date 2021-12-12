@@ -3,7 +3,7 @@
     display: flex;
     position: relative;
     border-radius: 15px;
-    background-color: #606a74;
+    background-color: #000000;
     padding: 2.5% 0 5% 0;
     justify-content: center;
     column-count: 1;
@@ -22,7 +22,7 @@
     margin-right: .5%;
     justify-self: center;
     border-collapse: collapse;
-    width: 98%;
+    width: 90%;
   }
   
   th, td {
@@ -36,7 +36,7 @@
   }
   
   th {
-    background-color: #606a74;
+    background-color: #01080f;
     text-align: center;
     padding: 16px;
     list-style-type: none;
@@ -46,11 +46,11 @@
   }
   
   td {
-    background-color: rgb(120, 123, 128);
+    background-color: rgb(128, 120, 120);
   }
   
   form {
-    display: flex;
+    /* display: flex; */
     gap: 5px;
   }
   

@@ -1,5 +1,7 @@
 import React from "react";
 import jwtDecode from 'jwt-decode';
+import './CommentInput.css';
+import Button from 'react-bootstrap/Button';
 
 const CommentInput = (props) => {
     let user = ""
@@ -18,11 +20,17 @@ const CommentInput = (props) => {
     if (jwt) {
             user = jwtDecode(jwt);
         return (
-            <form onSubmit={handleSubmit} className="form-addComment">
-                <input type="hidden" id="userId" name="userId" value={user.userId}/><br/>
-                <label for="comment">Comment:</label><br/>
-                <input type="text" id="comment" name="comment" placeholder="Add comment here..."/><br/><br/>
-                <input type="submit" value="Submit"/>
+            <form onSubmit={handleSubmit} >
+                <div class="row">
+                    <div class="column">
+                        <input type="hidden" id="userId" name="userId" value={user.userId}/><br/>
+                        <input className="text" type="text" id="comment" name="comment" placeholder="Add comment here..."/><br/><br/>
+                        <input className="submit" type="submit" value="Submit"/>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
             </form>
         )
     } 
