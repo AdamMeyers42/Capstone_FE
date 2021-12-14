@@ -9,8 +9,7 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import Team from './Team/Team';
 import Injury from './Injury/Injury'
-// import Footer from './Footer/Footer';
-// import SearchBar from './SearchBar/SearchBar';
+import Profile from './Profile/Profile'
 
 class App extends Component {
     constructor(props) {
@@ -20,6 +19,9 @@ class App extends Component {
             comments: [],
             players: [],
             injuries: [],
+            standings: [],
+            team: [],
+            favorites: [],
             refresh: "",
             jwt: "",
         };
@@ -28,19 +30,22 @@ class App extends Component {
     componentDidMount() {
         
         const jwt = localStorage.getItem('token');
-
+        let user = ""
         try {
-            const user = jwtDecode(jwt);
+            user = jwtDecode(jwt);
             this.setState({loggedInUser: user });
 
         } catch (error) {
             console.log(error);
         }
         
+        this.getAllFantasyPlayers(user.userId)
         this.getAllInjury()
         this.getAllComments()
-        // this.getAllPlayers()
+        this.getAllPlayers()
+        this.getStandings()
     }
+
     //login 
     registerNewUser = async (user) => {
 
@@ -70,7 +75,7 @@ class App extends Component {
             });
             localStorage.setItem('token', response.data.access);
             
-            window.location = ('/')
+            window.location = ('/Profile')
 
         } catch (error) {
             alert('Invalid username or password')
@@ -170,6 +175,41 @@ class App extends Component {
         }
     }
 
+    //favorite player
+    addFavorite = async (favePlayer) => {
+
+        try{
+            const response = await axios.put('http://127.0.0.1:8000/team/', favePlayer, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
+        }
+        catch(error) {
+            console.log(error, 'Invalid input');
+        }
+    }
+
+    //standings
+    getStandings = async () => {
+        let response = await axios.get('https://api.mysportsfeeds.com/v2.1/pull/nfl/2021-2022-regular/standings.json', { headers: {Authorization: 'Basic ' + 'MDA1ZWY3YTAtZmFhMC00YTE4LTkwOTItYjM1NWQwOk1ZU1BPUlRTRkVFRFM='}});
+        console.log(response)
+        this.setState({
+            standings: response.data
+        });
+    }
+    
+    //Fantasy Team
+    getAllFantasyPlayers = async (userId) => {
+        let response = await axios.get('http://127.0.0.1:8000/team/?userId=' + userId);
+        this.setState({
+            team: response.data
+        });
+    }
+
+    getFavoritePlayers = async (userId) => {
+        let response = await axios.get('http://127.0.0.1:8000/favorites/');
+        this.setState({
+            favorites: response.data
+        });
+    }
+
 
     render() {
         const user = this.state.loggedInUser
@@ -177,7 +217,6 @@ class App extends Component {
             <div>
                 <div>
                 <NavigationBar user={user}/>
-                {/* <SearchBar /> */}
                 </div>
 
                 <Switch>
@@ -192,13 +231,12 @@ class App extends Component {
                 
                 <Route path='/Login' render={props => <Login {...props} loginUser={this.loginUser}/>} />
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
-                <Route path='/Home' />
+                <Route path='/Home' render={props => <Home {...props} getStandings={this.state.standings} fantasyPlayers={this.state.team} addFavorite={this.addFavorite} favoriteFantasy={this.state.favorites}/>} />
+                <Route path='/Profile' render={props => <Profile {...props} />} />
                 <Route path='/Injury' render={props => <Injury {...props} user={this.state.loggedInUser} getAllInjury={this.state.injuries} deleteInjury={this.deleteInjury} addNewInjury={this.addNewInjury} editInjury={this.editInjury} />}/>                
                 <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} user={this.state.loggedInUser} addNewComment={this.addNewComment} deleteComment={this.deleteComment} />} />               
-                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} addPlayer={this.addPlayer} />} />               
-                </Switch>
-                {/* <Footer/> */}
-                
+                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} addPlayer={this.addPlayer} addFavorite={this.addFavorite} fantasyPlayers={this.state.team}/>} />               
+                </Switch>                
             </div>
 
         )

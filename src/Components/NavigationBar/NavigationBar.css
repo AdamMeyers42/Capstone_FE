@@ -8,9 +8,9 @@ ul {
     list-style-type: none;
     margin: 1%;
     padding: .25%;
-    border-radius: 15px;
+    border-radius: 42px;
     overflow: hidden;
-    background-color: #606a74;
+    background-color: #000000;
     float:none;
 }
 nav {

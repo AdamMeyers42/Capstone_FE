@@ -4,11 +4,12 @@
     display: flex;
     position: relative;
     border-radius: 15px;
-    background-color: #606a74;
+    background-color: #00080f;
     padding: 2.5% 0 5% 0;
     justify-content: center;
     column-count: 1;
     column-width: auto;
+    color: whitesmoke;
   }
    
   /* style inputs and link buttons */

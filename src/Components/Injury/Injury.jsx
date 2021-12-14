@@ -1,6 +1,7 @@
 import React from "react";
-import jwtDecode from "jwt-decode";
-import './Injury.css'
+import './Injury.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserInjured} from '@fortawesome/free-solid-svg-icons';
 
 const Injury = (props) => {
 
@@ -87,7 +88,7 @@ const Injury = (props) => {
                             <tbody>
                                 <tr>
                                     <td>{injuryReport.playerTeam}</td>
-                                    <td>{injuryReport.playerName}</td>
+                                    <td>{injuryReport.playerName}<FontAwesomeIcon icon={faUserInjured} /></td>
                                     <td>{injuryReport.injury}</td>
                                     <td>{injuryReport.duration}</td>
                                     <td><button onClick={() => handleDelete(injuryReport.id)}>Delete</button><button onClick={() => showEdit(injuryReport.id)}>Edit</button></td>

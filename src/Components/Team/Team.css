@@ -20,3 +20,14 @@
     width: 33%;
     display: block;
   }
+
+  .fa-star {
+    margin: auto;
+    display: block;
+  }
+
+  .teamRow {
+    background-color: #996600;
+    color: whitesmoke;
+    font-weight: bold;
+  }
