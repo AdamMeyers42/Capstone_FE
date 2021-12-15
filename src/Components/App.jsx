@@ -114,11 +114,6 @@ class App extends Component {
         }
     }
 
-    //players
-
-    
-
-    
     //injuryreport
     getAllInjury = async () => {
         let response = await axios.get('http://127.0.0.1:8000/injury/');
@@ -157,13 +152,6 @@ class App extends Component {
             console.log(error, 'Invalid input');
         }
     }
-    
-    //Fantasy Team
-
-
-
-
-
 
     render() {
         const user = this.state.loggedInUser
@@ -181,15 +169,14 @@ class App extends Component {
                         return (<Home {...props} user={user}/>)
                         }
                     }}
-                />               
-                
+                />                              
                 <Route path='/Login' render={props => <Login {...props} loginUser={this.loginUser}/>} />
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
                 <Route path='/Home' render={props => <Home {...props}  />} />
                 <Route path='/Profile' render={props => <Profile {...props} />} />
                 <Route path='/Injury' render={props => <Injury {...props} user={this.state.loggedInUser} getAllInjury={this.state.injuries} deleteInjury={this.deleteInjury} addNewInjury={this.addNewInjury} editInjury={this.editInjury} />}/>                
                 <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} user={this.state.loggedInUser} addNewComment={this.addNewComment} deleteComment={this.deleteComment} />} />               
-                <Route path='/Team' render={props => <Team {...props} user={this.state.loggedInUser} addPlayer={this.addPlayer} addFavorite={this.addFavorite} fantasyPlayers={this.state.fantasyPlayers}/>} />               
+                <Route path='/Team' render={props => <Team {...props} user={this.state.loggedInUser}/>} />               
                 </Switch>                
             </div>
 

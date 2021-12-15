@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import "./Home.css";
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons';
-import { faStar as solidStar} from '@fortawesome/free-solid-svg-icons';
+import Favorite from "../Favorite/Favorite";
 
 class Home extends Component {
     constructor(props) {
@@ -14,7 +12,6 @@ class Home extends Component {
             favorites: [],
         };
     }
-// const Home = (props) => {
 
     componentDidMount() {
         
@@ -32,13 +29,17 @@ class Home extends Component {
         this.getFavoritePlayers(user.userId)
     }
 
-    handleFavorite = (userPlayerId, favoriteStatus) => {
+    handleFavorite = (player) => {
+        let favoriteStatus = true
+        if (player.favoriteStatus == "True") {
+            favoriteStatus = false
+        } 
         const favePlayer = {
-            userPlayerId: userPlayerId,
+            userPlayerId: player.userPlayerId,
             favoriteStatus: favoriteStatus,
         }
         this.addFavorite(favePlayer)
-        // window.location = ('/Home') 
+        window.location = ('/Home')
     }
 
     getFavoritePlayers = async (userId) => {
@@ -134,7 +135,7 @@ class Home extends Component {
                             console.log(player)
                             return (
                                     <tr class="teamRow">
-                                        <td onClick={() => this.handleFavorite(player.userPlayerId, player.favoriteStatus)}><FontAwesomeIcon icon={regularStar} /></td>
+                                        <td onClick={() => this.handleFavorite(player)}><Favorite favoriteStatus={player.favoriteStatus} /></td>
                                         <td><img src={image}/></td>
                                         <td>{player.firstName}</td>
                                         <td>{player.lastName}</td>

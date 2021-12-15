@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Create a two-column layout */
+  .column {
+    float: left;
+    width: 45%;
+    padding: 5px;
+  }
+  
+  /* Clearfix (clear floats) */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .input {
+    width: 33%;
+    display: block;
+  }
+
+  .fa-star {
+    margin: auto;
+    display: block;
+  }
+
+  .teamRow {
+    background-color: #460035;
+    color: whitesmoke;
+    font-weight: bold;
+  }

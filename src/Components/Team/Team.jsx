@@ -1,11 +1,8 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { Component } from 'react';
 import './Team.css';
 import jwtDecode from "jwt-decode";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons';
-import { faStar as solidStar} from '@fortawesome/free-solid-svg-icons';
-import { faHeartbeat} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import Favorite from '../Favorite/Favorite';
 
 class Team extends Component {
     constructor(props) {
@@ -51,18 +48,20 @@ class Team extends Component {
         }
 
         this.addPlayer(userPlayer)
+        window.location = ('/Team') 
     }
 
      handleFavorite = (player) => {
-        let favoriteStatus = false
+        let favoriteStatus = true
         if (player.favoriteStatus) {
-            favoriteStatus = true
+            favoriteStatus = false
         } 
         const favePlayer = {
             userPlayerId: player.userPlayerId,
             favoriteStatus: favoriteStatus,
         }
         this.addFavorite(favePlayer)
+        window.location = ('/Team')
     }
 
     getAllPlayers = async () => {
@@ -150,12 +149,7 @@ class Team extends Component {
                         return (
                             <tbody>
                                 <tr class="teamRow">
-                                    {/* if (player.favoriteStatus == "False") {
-                                        <td onClick={() => handleFavorite(player.userPlayerId, player.favoriteStatus)}><FontAwesomeIcon icon={regularStar} /></td>
-                                    } else {
-                                        <td onClick={() => handleFavorite(player.userPlayerId, player.favoriteStatus)}><FontAwesomeIcon icon={solidStar} /></td>
-                                    } */}
-                                    <td onClick={() => this.handleFavorite(player)}><FontAwesomeIcon icon={solidStar} /></td>
+                                    <td onClick={() => this.handleFavorite(player)}><Favorite favoriteStatus={player.favoriteStatus}/></td>
                                     <td><img src={image}/></td>
                                     <td>{player.firstName}</td>
                                     <td>{player.lastName}</td>
