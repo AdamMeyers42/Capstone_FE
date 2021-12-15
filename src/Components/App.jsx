@@ -17,11 +17,7 @@ class App extends Component {
         this.state = {
             loggedInUser: null,
             comments: [],
-            players: [],
             injuries: [],
-            standings: [],
-            team: [],
-            favorites: [],
             refresh: "",
             jwt: "",
         };
@@ -38,12 +34,9 @@ class App extends Component {
         } catch (error) {
             console.log(error);
         }
-        
-        this.getAllFantasyPlayers(user.userId)
+
         this.getAllInjury()
         this.getAllComments()
-        this.getAllPlayers()
-        this.getStandings()
     }
 
     //login 
@@ -122,19 +115,9 @@ class App extends Component {
     }
 
     //players
-    getAllPlayers = async () => {
-        let response = await axios.get('http://127.0.0.1:8000/players/');
-        this.setState({
-            players: response.data
-        });
-    }
+
     
-    addPlayer = async (userPlayer) => {
-        let response = await axios.post('http://127.0.0.1:8000/players/', userPlayer, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
-        this.setState({
-            players: response.data
-        });
-    }
+
     
     //injuryreport
     getAllInjury = async () => {
@@ -174,41 +157,12 @@ class App extends Component {
             console.log(error, 'Invalid input');
         }
     }
-
-    //favorite player
-    addFavorite = async (favePlayer) => {
-
-        try{
-            const response = await axios.put('http://127.0.0.1:8000/team/', favePlayer, { headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
-        }
-        catch(error) {
-            console.log(error, 'Invalid input');
-        }
-    }
-
-    //standings
-    getStandings = async () => {
-        let response = await axios.get('https://api.mysportsfeeds.com/v2.1/pull/nfl/2021-2022-regular/standings.json', { headers: {Authorization: 'Basic ' + 'MDA1ZWY3YTAtZmFhMC00YTE4LTkwOTItYjM1NWQwOk1ZU1BPUlRTRkVFRFM='}});
-        console.log(response)
-        this.setState({
-            standings: response.data
-        });
-    }
     
     //Fantasy Team
-    getAllFantasyPlayers = async (userId) => {
-        let response = await axios.get('http://127.0.0.1:8000/team/?userId=' + userId);
-        this.setState({
-            team: response.data
-        });
-    }
 
-    getFavoritePlayers = async (userId) => {
-        let response = await axios.get('http://127.0.0.1:8000/favorites/');
-        this.setState({
-            favorites: response.data
-        });
-    }
+
+
+
 
 
     render() {
@@ -231,11 +185,11 @@ class App extends Component {
                 
                 <Route path='/Login' render={props => <Login {...props} loginUser={this.loginUser}/>} />
                 <Route path='/Register' render={props => <Register {...props} registerNewUser={this.registerNewUser}/>} /> 
-                <Route path='/Home' render={props => <Home {...props} getStandings={this.state.standings} fantasyPlayers={this.state.team} addFavorite={this.addFavorite} favoriteFantasy={this.state.favorites}/>} />
+                <Route path='/Home' render={props => <Home {...props}  />} />
                 <Route path='/Profile' render={props => <Profile {...props} />} />
                 <Route path='/Injury' render={props => <Injury {...props} user={this.state.loggedInUser} getAllInjury={this.state.injuries} deleteInjury={this.deleteInjury} addNewInjury={this.addNewInjury} editInjury={this.editInjury} />}/>                
                 <Route path='/CommentBoard' render={props => <CommentBoard {...props} getAllComments={this.state.comments} user={this.state.loggedInUser} addNewComment={this.addNewComment} deleteComment={this.deleteComment} />} />               
-                <Route path='/Team' render={props => <Team {...props} getAllPlayers={this.state.players} user={this.state.loggedInUser} addPlayer={this.addPlayer} addFavorite={this.addFavorite} fantasyPlayers={this.state.team}/>} />               
+                <Route path='/Team' render={props => <Team {...props} user={this.state.loggedInUser} addPlayer={this.addPlayer} addFavorite={this.addFavorite} fantasyPlayers={this.state.fantasyPlayers}/>} />               
                 </Switch>                
             </div>
 
