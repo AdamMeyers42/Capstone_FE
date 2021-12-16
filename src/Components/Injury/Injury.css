@@ -27,12 +27,14 @@
     padding: 10px;
     box-sizing: border-box;
     float: right;
-    background-color: rgb(41, 204, 8);
+    background-color: rgb(126 0 0);
     font-weight: bold;
+    color: whitesmoke;
 }
 
 .text {
-    background-color: rgb(228, 224, 224);
+    background-color: rgb(6 4 6);
+    color: whitesmoke;
 }
 
 .label {

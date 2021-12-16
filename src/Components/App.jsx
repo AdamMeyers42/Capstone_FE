@@ -51,6 +51,7 @@ class App extends Component {
         catch(error) {
             console.log(error, 'Invalid input');
         }
+        window.location = ('/Login')
     }
 
     loginUser = async (login) => {
@@ -68,7 +69,7 @@ class App extends Component {
             });
             localStorage.setItem('token', response.data.access);
             
-            window.location = ('/Profile')
+            window.location = ('/Home')
 
         } catch (error) {
             alert('Invalid username or password')

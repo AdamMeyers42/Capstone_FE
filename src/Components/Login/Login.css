@@ -4,12 +4,14 @@
     display: flex;
     position: relative;
     border-radius: 15px;
-    background-color: #00080f;
+    background-color: #460035;
     padding: 2.5% 0 5% 0;
     justify-content: center;
     column-count: 1;
     column-width: auto;
     color: whitesmoke;
+    margin-left: auto;
+    margin-right: auto;
   }
    
   /* style inputs and link buttons */
@@ -35,8 +37,9 @@
    
   /* style the submit button */
   button[type="submit"] {
-    background-color: #4caf50;
-    color: white;
+    background-color: rgb(126 0 0);
+    font-weight: bold;
+    color: whitesmoke;
     cursor: pointer;
   }
    

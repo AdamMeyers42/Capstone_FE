@@ -10,7 +10,7 @@ ul {
     padding: .25%;
     border-radius: 42px;
     overflow: hidden;
-    background-color: #000000;
+    background-color: #240536;
     float:none;
 }
 nav {
@@ -25,7 +25,7 @@ nav a {
     text-decoration: none;
     }
     #nav a:hover {
-    background-color: black;
+    background-color: #240536;
     color: #F1F1F1;
     }
 #nav a.active {

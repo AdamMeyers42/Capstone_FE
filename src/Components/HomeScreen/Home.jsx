@@ -81,6 +81,7 @@ class Home extends Component {
         return (
             <div class="row">
             <div class="column">
+            <h1>Current NFL Standings</h1>
             <table>
                 <thead>
                     <tr>
@@ -114,6 +115,7 @@ class Home extends Component {
             </table>
             </div>
             <div class="column">
+                <h1>Favorite Players</h1>
                 <table>
                     <thead>
                         <tr>
@@ -121,7 +123,9 @@ class Home extends Component {
                             <th>Profile Picture</th>
                             <th>Name</th>
                             <th>Position</th>
-                            <th>Stats</th>
+                            <th>Passing Stats</th>
+                            <th>Rushing Stats</th>
+                            <th>Receiving Stats</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -132,14 +136,29 @@ class Home extends Component {
                             } else {
                                 image = "image/defaultpic.jpg"
                             }
-                            console.log(player)
+                            let passing = ""
+                            let rushing = ""
+                            let receiving = ""
+                           
+                            passing = player.passing.replaceAll("{",'')
+                            passing = passing.replaceAll("}",'')
+                            passing = passing.replaceAll(",",'\n\n')
+                            rushing = player.rushing.replaceAll("{",'')
+                            rushing = rushing.replaceAll("}",'')
+                            rushing = rushing.replaceAll(",",'\n\n')
+                            receiving = player.receiving.replaceAll("{",'')
+                            receiving = receiving.replaceAll("}",'')
+                            receiving = receiving.replaceAll(",",'\n\n')
+
                             return (
                                     <tr class="teamRow">
                                         <td onClick={() => this.handleFavorite(player)}><Favorite favoriteStatus={player.favoriteStatus} /></td>
                                         <td><img src={image}/></td>
-                                        <td>{player.firstName}</td>
-                                        <td>{player.lastName}</td>
+                                        <td>{player.firstName} {player.lastName}</td>
                                         <td>{player.playerPosition}</td>
+                                        <td>{passing}</td>
+                                        <td>{player.rushing}</td>
+                                        <td>{player.receiving}</td>
                                     </tr>
                             )
                         })}

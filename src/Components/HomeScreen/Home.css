@@ -48,7 +48,7 @@
   }
   
   td {
-    /* background-color: #996600; */
+    background-color: null;
     color: whitesmoke;
     font-weight: bold;
   }
@@ -68,7 +68,7 @@
   }
 
   body {
-    background-color: #C0C0C0;
+    background-color: #E2D3FA;
   }
 
   .teamLogo {

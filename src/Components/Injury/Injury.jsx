@@ -75,7 +75,7 @@ const Injury = (props) => {
             <div class="column">
                 <table className="table-container">
                     <thead>
-                        <tr>
+                        <tr class="teamRow">
                             <th>Fantasy Team</th>
                             <th>Player Name</th>
                             <th>Injury</th>
@@ -86,7 +86,7 @@ const Injury = (props) => {
                         {props.getAllInjury.map((injuryReport) => {
                         return (
                             <tbody>
-                                <tr>
+                                <tr class="teamRow">
                                     <td>{injuryReport.playerTeam}</td>
                                     <td>{injuryReport.playerName}<FontAwesomeIcon icon={faUserInjured} /></td>
                                     <td>{injuryReport.injury}</td>

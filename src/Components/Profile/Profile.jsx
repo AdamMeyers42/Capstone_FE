@@ -1,7 +1,5 @@
-
 import React from "react";
-// import "./Profile.css"
-import jwtDecode from "jwt-decode";
+import "./Profile.css"
 
 const Profile = (props) => {
 
@@ -23,7 +21,7 @@ const Profile = (props) => {
 
     
       <div class="row"> 
-          <h1>Update Profile Info</h1>
+          <h1 >Update Profile Info</h1>
         <div class="container">
           <form onSubmit={handleSubmit} class="w3-table-all">
             <div class="row">
@@ -70,6 +68,7 @@ const Profile = (props) => {
                   <div class="form-field__control">
                     <label for="password"class="form-field__label">Password</label>
                     <input id="password" type="text" class="form-field__input" />
+                    <button onClick={() => handleSubmit()}>Update Account</button>
                   </div>
                 </div>
               </div>

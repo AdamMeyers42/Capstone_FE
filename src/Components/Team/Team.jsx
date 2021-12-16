@@ -3,14 +3,30 @@ import './Team.css';
 import jwtDecode from "jwt-decode";
 import axios from 'axios';
 import Favorite from '../Favorite/Favorite';
+import Search from '../Search/Search';
 
 class Team extends Component {
     constructor(props) {
         super(props);
+        this.handleSearch = this.handleSearch.bind(this)
         this.state = {
             players: [],
             fantasyPlayers: [],
+            searchTerms: [],
         };
+    }
+
+    handleSearch = () => {
+        
+        let searchTerm = document.querySelector(".searchTerm").value;
+        this.search(searchTerm)
+    }
+
+    search = async (searchTerm) => {
+        const jwt = localStorage.getItem('token');
+        const user = jwtDecode(jwt);
+        let response = await axios.get('http://127.0.0.1:8000/players/?searchTerm=' + searchTerm + '&userId=' + user.userId);
+        this.setState({ players: response.data})
     }
 
     componentDidMount() {
@@ -25,6 +41,7 @@ class Team extends Component {
             console.log(error);
         }
         
+        this.getSearchTerms()
         this.getAllPlayers()
         this.getAllFantasyPlayers(user.userId)
     }
@@ -48,12 +65,12 @@ class Team extends Component {
         }
 
         this.addPlayer(userPlayer)
-        window.location = ('/Team') 
+        window.location = ('/Team')
     }
 
      handleFavorite = (player) => {
         let favoriteStatus = true
-        if (player.favoriteStatus) {
+        if (player.favoriteStatus == "True") {
             favoriteStatus = false
         } 
         const favePlayer = {
@@ -91,11 +108,19 @@ class Team extends Component {
         this.setState({ fantasyPlayers: response.data})
     }
 
+    getSearchTerms = async () => {
+        const jwt = localStorage.getItem('token');
+        const user = jwtDecode(jwt);
+        let response = await axios.get('http://127.0.0.1:8000/searchTerms/?userId=' + user.userId);
+        this.setState({ searchTerms: response.data})
+    }
+
     render(){
     return (
         <div class="row"> 
             <div class="column">
                 <h2>Available Players</h2>
+                <Search handleSearch={this.handleSearch} searchTerms={this.state.searchTerms} />
                 <table>
                     <thead>
                         <tr>

@@ -1,5 +1,6 @@
 import React from "react";
 import CommentInput from "../CommentInput/CommentInput";
+import './CommentBoard.css';
 
 
 const CommentBoard = (props) => {
@@ -11,14 +12,13 @@ const CommentBoard = (props) => {
 
     return (
         <div>
-            <h1>SMACK TALK</h1>
             <div class="h-25">
                 <CommentInput {...props} addNewComment={props.addNewComment} />
             </div>
             <div>
                 <table className="table-container">
                     <thead>
-                        <tr>
+                        <tr class="teamRow">
                             <th>User</th>
                             <th>Comment</th>
                             <th>Action</th>
@@ -27,7 +27,7 @@ const CommentBoard = (props) => {
                     {props.getAllComments.map((comment) => {   
                         return (
                             <tbody>
-                                <tr>                        
+                                <tr class="teamRow">                        
                                     <td>{comment.username}</td>
                                     <td>{comment.comment}</td>
                                     <td><button onClick={() => handleDelete(comment.commentId)}>delete</button></td>
